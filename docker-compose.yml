@@ -1,0 +1,59 @@
+version: '2'
+services:
+    eureka-server:
+        container_name: eureka-server
+        build:
+            context: eureka-ifood/.
+            dockerfile: Dockerfile-eureka
+        image: eureka-server:latest
+        networks:
+            - emp-network
+        expose:
+            - "8761"
+        ports:
+            - "8761:8761"
+
+    
+    playlist-server:
+        container_name: playlist-server
+        build:
+            context: playlist-ifood/.
+            dockerfile: Dockerfile-playlist
+        image: playlist-server:latest
+        networks:
+            - emp-network
+        expose:
+            - "8090"
+        ports:
+            - "8090:8090"
+        depends_on:
+            - eureka-server
+        links:
+            - eureka-server
+        environment:
+            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+
+
+    gateway-server:
+        container_name: gateway-server
+        build:
+            context: gateway-ifood/.
+            dockerfile: Dockerfile-gateway
+        image: gateway-server:latest
+        networks:
+            - emp-network
+        expose:
+            - "8091"
+        ports:
+            - "8091:8091"
+        depends_on:
+            - eureka-server
+        links:
+            - eureka-server
+        environment:
+            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+
+
+networks:
+    emp-network:
+        driver: bridge

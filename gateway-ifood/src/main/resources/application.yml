@@ -1,0 +1,33 @@
+server:
+  port: 8091
+
+zuul:
+  ignoredServices: '*'
+  routes:
+    multiplications:
+      path: /playlist/**
+      serviceId: playlist-service
+      strip-prefix: false
+      
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 10000
+            
+endpoints:
+  routes:
+    sensitive: false
+  trace:
+    sensitive: false
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+      

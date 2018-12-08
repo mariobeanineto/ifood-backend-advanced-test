@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: playlist-service
+
+server:
+  port: 8090
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+  
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    password: RXIlPpzwQv      
+      
+key:
+  maps-api: ENC(iPn0AEv7mBPMWi5cvxVKvdLWU6fHVLw3Wl/Wp10s33TNZJ2gMfJCjsyLa9AvzSCG)
+  spotify: ENC(TiDMCrYJ0tD26m6mjoig6/fg0UF3M0jofLchR1bVHCbyiyLXVDCMyjAOhhe4eFJrPOU1o1iL52ah4cLU+Bia60L1bpgfn8KtYkD7q1T7pJSifmEpZPxF8jzQYwiDSnlJ)
